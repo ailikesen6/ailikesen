@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 下面是核心代码：直接嵌入 emoji 作为图标 -->
+     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2250%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2280%22>🖳</text></svg>">
+    <title>极简科技导航矩阵</title>
+    <style>
+        /* 全局基础设置 */
+        
+         :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --card-border: #334155;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --accent-color: #00f2fe;
+            --warning-color: #ef4444;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 15% 50%, rgba(0, 242, 254, 0.05), transparent 25%), radial-gradient(circle at 85% 30%, rgba(0, 242, 254, 0.05), transparent 25%);
+        }
+        /* 顶部警告横幅 */
+        
+        .warning-banner {
+            text-align: center;
+            color: var(--warning-color);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 12px 20px;
+            background: rgba(239, 68, 68, 0.1);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+            letter-spacing: 1px;
+            backdrop-filter: blur(4px);
+        }
+        /* 页面头部 */
+        
+        header {
+            text-align: center;
+            padding: 50px 20px 30px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            color: var(--text-sub);
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+        /* 导航卡片网格布局 */
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px 60px;
+        }
+        /* 单个卡片样式 */
+        
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.15);
+            background: rgba(30, 41, 59, 0.8);
+        }
+        
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover .icon {
+            transform: scale(1.1);
+        }
+        
+        .card h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.2rem;
+            color: var(--text-main);
+        }
+        
+        .card p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            text-align: center;
+            line-height: 1.4;
+        }
+        /* 响应式设计：适配手机端 */
+        
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                padding: 20px;
+                gap: 15px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="warning-banner">
+        仅为娱乐，请勿用于各种非法用途，如用于非法用途，自己承担响应后果！
+    </div>
+
+    <header>
+        <h1>终端导航矩阵</h1>
+        <div class="subtitle">Power by Ailikesen</div>
+    </header>
+
+    <main class="grid-container">
+
+        <a href="https://github.com" target="_blank" class="card">
+            <div class="icon">💻</div>
+            <h3>GitHub</h3>
+            <p>全球最大的开源代码托管平台</p>
+        </a>
+
+        <a href="https://www.bilibili.com" target="_blank" class="card">
+            <div class="icon">📺</div>
+            <h3>Bilibili</h3>
+            <p>高能弹幕视频互动社区</p>
+        </a>
+
+        <a href="https://www.zhihu.com" target="_blank" class="card">
+            <div class="icon">💡</div>
+            <h3>知乎</h3>
+            <p>高质量问答与知识分享</p>
+        </a>
+
+        <a href="https://www.google.com" target="_blank" class="card">
+            <div class="icon">🌍</div>
+            <h3>Google</h3>
+            <p>探索互联网世界的入口</p>
+        </a>
+
+        <a href="https://v2ex.com" target="_blank" class="card">
+            <div class="icon">🚀</div>
+            <h3>V2EX</h3>
+            <p>创意工作者们的交流社区</p>
+        </a>
+
+        <a href="https://www.douban.com" target="_blank" class="card">
+            <div class="icon">📚</div>
+            <h3>豆瓣</h3>
+            <p>电影、书籍与音乐分享</p>
+        </a>
+
+        <a href="bank_transaction_detail.html" target="_blank" class="card">
+            <div class="icon">💳</div>
+            <h3>银行到账明细详情</h3>
+            <p>手机银行到账效果页（仅供娱乐！）</p>
+        </a>
+
+        <a href="wechat_refund.html" target="_blank" class="card">
+            <div class="icon">💬</div>
+            <h3>微信支付退款通知</h3>
+            <p>微信支付退款通知效果页（仅供娱乐！）</p>
+        </a>
+
+    </main>
+
+</body>
+
+</html>
