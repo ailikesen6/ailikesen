@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>账单详情</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            color: #333333;
+            padding: 0 12px;
+            padding-bottom: 30px;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 48px;
+            padding: 0 4px;
+            background-color: #f7f7f7;
+        }
+
+        .back-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .back-icon::after {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border-left: 2px solid #333;
+            border-bottom: 2px solid #333;
+            transform: rotate(45deg);
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .header-right {
+            font-size: 15px;
+            color: #333;
+        }
+
+        /* 主卡片容器 */
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 24px 16px 16px 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        /* 退款状态头部 */
+        .status-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .refund-badge {
+            width: 44px;
+            height: 44px;
+            background-color: #108ee9;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .merchant-name {
+            font-size: 15px;
+            color: #333333;
+            margin-bottom: 6px;
+        }
+
+        .amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 4px;
+        }
+
+        .status-text {
+            font-size: 14px;
+            color: #333333;
+        }
+
+        /* 详情信息列表 */
+        .info-item {
+            display: flex;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            font-size: 14px;
+        }
+
+        .info-label {
+            width: 80px;
+            color: #999999;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: #333333;
+            flex-grow: 1;
+            word-break: break-all;
+        }
+
+        .info-value.link {
+            color: #108ee9;
+            cursor: pointer;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eeeeee;
+            margin: 16px 0;
+        }
+
+        /* 进度条样式 */
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-left: 4px;
+        }
+
+        .progress-step {
+            display: flex;
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .progress-step:last-child {
+            padding-bottom: 0;
+        }
+
+        /* 进度线条 */
+        .progress-step::before {
+            content: "";
+            position: absolute;
+            left: 8px;
+            top: 16px;
+            bottom: -6px;
+            width: 2px;
+            background-color: #108ee9;
+            z-index: 1;
+        }
+
+        .progress-step:last-child::before {
+            display: none;
+        }
+
+        /* 进度勾选图标 */
+        .step-icon {
+            width: 18px;
+            height: 18px;
+            background-color: #108ee9;
+            border-radius: 50%;
+            margin-right: 12px;
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .step-icon::after {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 3px;
+            width: 4px;
+            height: 8px;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            transform: rotate(45deg);
+        }
+
+        .step-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-title {
+            font-size: 14px;
+            color: #333333;
+            font-weight: 500;
+        }
+
+        .step-time {
+            font-size: 12px;
+            color: #999999;
+            margin-top: 3px;
+        }
+
+        .progress-tip {
+            font-size: 12px;
+            color: #999999;
+            padding-left: 30px;
+            line-height: 1.5;
+            margin-top: 4px;
+        }
+
+        /* 账单管理样式 */
+        .management-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333333;
+            margin-bottom: 16px;
+        }
+
+        .clickable-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .clickable-value {
+            color: #999999;
+            display: flex;
+            align-items: center;
+        }
+
+        .arrow-right {
+            width: 8px;
+            height: 8px;
+            border-right: 1.5px solid #cccccc;
+            border-top: 1.5px solid #cccccc;
+            transform: rotate(45deg);
+            margin-left: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <div class="header">
+        <div class="back-icon"></div>
+        <div class="header-title">账单详情</div>
+        <div class="header-right">全部账单</div>
+    </div>
+
+    <!-- 主账单卡片 -->
+    <div class="card">
+        <!-- 头部状态 -->
+        <div class="status-header">
+            <div class="refund-badge">退</div>
+            <div class="merchant-name">牵手恋爱</div>
+            <div class="amount">10,000.00</div>
+            <div class="status-text">退款成功</div>
+        </div>
+
+        <!-- 关联记录 -->
+        <div class="info-item">
+            <div class="info-label">关联记录</div>
+            <div class="info-value link">查看原账单</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 基本详情与进度 -->
+        <div class="info-item">
+            <div class="info-label">创建时间</div>
+            <div class="info-value">2025-05-16 18:13:40</div>
+        </div>
+
+        <div class="info-item" style="margin-bottom: 12px;">
+            <div class="info-label">退款方式</div>
+            <div class="info-value clickable-item" style="justify-content: flex-start; cursor: pointer;">
+                <span>招商银行信用卡(4669)</span>
+                <div class="arrow-right" style="border-right-width: 1px; border-top-width: 1px; margin-left: 4px;"></div>
+            </div>
+        </div>
+
+        <!-- 退款进度时间轴 -->
+        <div class="info-item" style="margin-bottom: 4px;">
+            <div class="info-label">退款进度</div>
+            <div class="info-value progress-container">
+                
+                <!-- 步骤 1 -->
+                <div class="progress-step">
+                    <div class="step-icon"></div>
+                    <div class="step-content">
+                        <span class="step-title">提交银行处理</span>
+                        <span class="step-time">05-16 18:13</span>
+                    </div>
+                </div>
+
+                <!-- 步骤 2 -->
+                <div class="progress-step">
+                    <div class="step-icon"></div>
+                    <div class="step-content">
+                        <span class="step-title">银行处理中</span>
+                        <span class="step-time">05-16 18:13</span>
+                    </div>
+                </div>
+
+                <!-- 步骤 3 -->
+                <div class="progress-step">
+                    <div class="step-icon"></div>
+                    <div class="step-content">
+                        <span class="step-title">银行入账成功</span>
+                        <span class="step-time">05-16 18:13</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- 进度温馨提示 -->
+        <div class="progress-tip">
+            实际银行卡到账时间以银行通知为准，如有疑问请联系银行客服
+        </div>
+
+        <div class="divider" style="margin: 16px 0 20px 0;"></div>
+
+        <!-- 商品与订单号 -->
+        <div class="info-item">
+            <div class="info-label">商品说明</div>
+            <div class="info-value">退款-红娘定制化服务</div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-label">订单号</div>
+            <div class="info-value">2025050823001404851426212572</div>
+        </div>
+
+        <div class="info-item" style="margin-bottom: 8px;">
+            <div class="info-label">商家订单号</div>
+            <div class="info-value">ce1746717010780488089Y0rw0GAqfQ5</div>
+        </div>
+    </div>
+
+    <!-- 账单管理卡片 -->
+    <div class="card" style="padding: 16px;">
+        <div class="management-title">账单管理</div>
+        <div class="clickable-item" style="cursor: pointer;">
+            <div style="font-size: 14px; color: #333333;">账单分类</div>
+            <div class="clickable-value">
+                <span>退款</span>
+                <div class="arrow-right"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
